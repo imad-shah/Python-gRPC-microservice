@@ -3,45 +3,48 @@ syntax = "proto3";
 
 
 message Book {
-    string author = 1;
-    string title = 2;
-    uint64 isbn = 3;
+  string author = 1;
+  string title = 2;
+  uint64 isbn = 3;
 }
 
 
 message GetBooksRequest{
-    
+  string uuid = 1;
 }
 
 
 message GetBooksResponse{
-
+  oneof all_books_or_err{
+      string all_books = 1;
+      Error err = 2;
+  }
 }
 
-// message GetReturnDeadlineRequest{
-//     string uuid = 1;
-// }
+message GetReturnDeadlineRequest{
+    string uuid = 1;
+}
 
 
-// message GetReturnDeadlineResponse{
-//     oneof date_or_err{
-//         string date = 1;
-//         Error err = 2;
-//     }
-// }
+message GetReturnDeadlineResponse{
+  oneof date_or_err{
+      string date = 1;
+      Error err = 2;
+  }
+}
 
 
-// message GetBookCountRequest{
-//     string uuid = 1; 
-// }
+message GetBookCountRequest{
+  string uuid = 1; 
+}
 
 
-// message GetBookCountResponse{
-//     oneof book_count_or_err{
-//         uint32 book_count = 1;
-//         Error err = 2;
-//     }
-// }
+message GetBookCountResponse{
+  oneof book_count_or_err{
+      uint32 book_count = 1;
+      Error err = 2;
+  }
+}
 
 
 message Error {
@@ -50,8 +53,13 @@ message Error {
 }
 
 service Library {
-  rpc GetBooks (GetBooksRequest) returns (GetBooksResponse);
-  rpc GetReturnDeadline (GetReturnDeadlineRequest) returns (GetReturnDeadlineResponse);
-  rpc GetBookCount (GetBookCountRequest) returns (GetBookCountResponse);
+  // What books are currently checked out
+  rpc GetBooks (GetBooksRequest) returns (GetBooksResponse); 
+
+  // When are the books currently checked out due
+  rpc GetReturnDeadline (GetReturnDeadlineRequest) returns (GetReturnDeadlineResponse); 
+
+  // How many books does the reader have checked out
+  rpc GetBookCount (GetBookCountRequest) returns (GetBookCountResponse); 
 }
 
