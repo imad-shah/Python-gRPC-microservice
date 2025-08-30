@@ -49,6 +49,16 @@ class LibraryStub(object):
                 request_serializer=proto_dot_library__pb2.GetBookCountRequest.SerializeToString,
                 response_deserializer=proto_dot_library__pb2.GetBookCountResponse.FromString,
                 _registered_method=True)
+        self.CheckoutBook = channel.unary_unary(
+                '/Library/CheckoutBook',
+                request_serializer=proto_dot_library__pb2.CheckoutBookRequest.SerializeToString,
+                response_deserializer=proto_dot_library__pb2.CheckoutBookResponse.FromString,
+                _registered_method=True)
+        self.ReturnBook = channel.unary_unary(
+                '/Library/ReturnBook',
+                request_serializer=proto_dot_library__pb2.ReturnBookRequest.SerializeToString,
+                response_deserializer=proto_dot_library__pb2.ReturnBookResponse.FromString,
+                _registered_method=True)
 
 
 class LibraryServicer(object):
@@ -63,7 +73,7 @@ class LibraryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetInventorySummary(self, request, context):
-        """fetches all avaliable data from sql database pertaining to library
+        """fetches all available data from sql database pertaining to library
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -72,6 +82,20 @@ class LibraryServicer(object):
     def GetBookCount(self, request, context):
         """How many of a certain book is remaining in the Library
         returns copies_remaining in sql db
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CheckoutBook(self, request, context):
+        """Checkout a book from mysql db, put it in the nosql db for each patron, return an error if 0 copies remaining in sql
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReturnBook(self, request, context):
+        """Opposite of checkout book
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -94,6 +118,16 @@ def add_LibraryServicer_to_server(servicer, server):
                     servicer.GetBookCount,
                     request_deserializer=proto_dot_library__pb2.GetBookCountRequest.FromString,
                     response_serializer=proto_dot_library__pb2.GetBookCountResponse.SerializeToString,
+            ),
+            'CheckoutBook': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckoutBook,
+                    request_deserializer=proto_dot_library__pb2.CheckoutBookRequest.FromString,
+                    response_serializer=proto_dot_library__pb2.CheckoutBookResponse.SerializeToString,
+            ),
+            'ReturnBook': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReturnBook,
+                    request_deserializer=proto_dot_library__pb2.ReturnBookRequest.FromString,
+                    response_serializer=proto_dot_library__pb2.ReturnBookResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -177,6 +211,60 @@ class Library(object):
             '/Library/GetBookCount',
             proto_dot_library__pb2.GetBookCountRequest.SerializeToString,
             proto_dot_library__pb2.GetBookCountResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CheckoutBook(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/Library/CheckoutBook',
+            proto_dot_library__pb2.CheckoutBookRequest.SerializeToString,
+            proto_dot_library__pb2.CheckoutBookResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ReturnBook(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/Library/ReturnBook',
+            proto_dot_library__pb2.ReturnBookRequest.SerializeToString,
+            proto_dot_library__pb2.ReturnBookResponse.FromString,
             options,
             channel_credentials,
             insecure,

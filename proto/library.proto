@@ -1,28 +1,17 @@
 syntax = "proto3";
 
-
-enum ErrorCode {
-  ERR_CODE_BAD_REQUEST = 0;
-  ERR_CODE_NOT_FOUND = 1;
-}
-
 message Book {
   string author = 1;
   string title = 2;
-  uint64 isbn = 3;
+  string isbn = 3;
 }
-
 
 message GetBooksRequest{
-  string uuid = 1;
+  string patron = 1;
 }
 
-
 message GetBooksResponse{
-  oneof all_books_or_err{
-      string all_books = 1;
-      Error err = 2;
-  }
+  repeated Book books = 1;
 }
 
 message GetInventorySummaryRequest {}
@@ -31,39 +20,75 @@ message GetInventorySummaryResponse {
   uint32 total_titles = 1;
   uint32 total_copies = 2;
   uint32 total_checked_out = 3;
-  uint32 total_avaliable = 4;
-  Error err = 5;
+  uint32 total_available = 4;
 }
-
 
 message GetBookCountRequest{
-  string uuid = 1; 
+  string patron = 1; 
 }
-
 
 message GetBookCountResponse{
-  oneof book_count_or_err{
-      uint32 book_count = 1;
-      Error err = 2;
+  uint32 book_count = 1;
+}
+
+message CheckoutBookRequest {
+  string patron = 1;
+  string isbn = 2;
+}
+
+message CheckoutBookResponse {
+  enum Status {
+    OK = 0;
+    NOT_FOUND = 1; // patron or book not found
+    UNAVAILABLE = 2; // no copies_remaining
+    ERROR = 4;
   }
+  Status status = 1;
+  string message = 2;
+  LoanInfo loan = 3;
+  uint32 copies_remaining = 4;
+
 }
 
-
-message Error {
-  string message = 1;
-  uint32 code = 2;
+message LoanInfo {
+  string isbn = 1;
+  string checkout_time = 2;
+  string due_date = 3;
 }
+
+message ReturnBookRequest {
+  string patron = 1;
+  string isbn = 2;
+}
+
+message ReturnBookResponse {
+  enum Status{
+    OK = 0;
+    NOT_FOUND = 1;
+    ERROR = 2;
+  }
+  Status status = 1;
+  string message = 2;
+  uint32 copies_remaining = 3;
+}
+
 
 service Library {
   // What books are currently checked out
   // finds a patron by name, then returns their books from nosql mongodb
   rpc GetBooks (GetBooksRequest) returns (GetBooksResponse); 
 
-  // fetches all avaliable data from sql database pertaining to library
+  // fetches all available data from sql database pertaining to library
   rpc GetInventorySummary (GetInventorySummaryRequest) returns (GetInventorySummaryResponse);
 
   // How many of a certain book is remaining in the Library
   // returns copies_remaining in sql db
   rpc GetBookCount (GetBookCountRequest) returns (GetBookCountResponse); 
+
+  // Checkout a book from mysql db, put it in the nosql db for each patron, return an error if 0 copies remaining in sql
+  rpc CheckoutBook(CheckoutBookRequest) returns (CheckoutBookResponse);
+
+  // Opposite of checkout book
+  rpc ReturnBook(ReturnBookRequest) returns (ReturnBookResponse);
 }
 
