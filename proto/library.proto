@@ -72,6 +72,19 @@ message ReturnBookResponse {
   uint32 copies_remaining = 3;
 }
 
+message RegisterPatronRequest {
+  string patron = 1;
+}
+
+message RegisterPatronResponse {
+  enum Status {
+    OK = 0;
+    ALREADY_EXISTS = 1;
+    ERROR = 2;
+  }
+  Status status = 1;
+  string message = 2;
+}
 
 service Library {
   // What books are currently checked out
@@ -90,5 +103,8 @@ service Library {
 
   // Opposite of checkout book
   rpc ReturnBook(ReturnBookRequest) returns (ReturnBookResponse);
+
+  // Registering a new patro
+  rpc RegisterPatron (RegisterPatronRequest) returns (RegisterPatronResponse)
 }
 
