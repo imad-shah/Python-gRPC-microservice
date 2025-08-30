@@ -25,16 +25,14 @@ message GetBooksResponse{
   }
 }
 
-message GetReturnDeadlineRequest{
-    string uuid = 1;
-}
+message GetInventorySummaryRequest {}
 
-
-message GetReturnDeadlineResponse{
-  oneof date_or_err{
-      string date = 1;
-      Error err = 2;
-  }
+message GetInventorySummaryResponse {
+  uint32 total_titles = 1;
+  uint32 total_copies = 2;
+  uint32 total_checked_out = 3;
+  uint32 total_avaliable = 4;
+  Error err = 5;
 }
 
 
@@ -58,12 +56,14 @@ message Error {
 
 service Library {
   // What books are currently checked out
+  // finds a patron by name, then returns their books from nosql mongodb
   rpc GetBooks (GetBooksRequest) returns (GetBooksResponse); 
 
-  // When are the books currently checked out due
-  rpc GetReturnDeadline (GetReturnDeadlineRequest) returns (GetReturnDeadlineResponse); 
+  // fetches all avaliable data from sql database pertaining to library
+  rpc GetInventorySummary (GetInventorySummaryRequest) returns (GetInventorySummaryResponse);
 
-  // How many books does the reader have checked out
+  // How many of a certain book is remaining in the Library
+  // returns copies_remaining in sql db
   rpc GetBookCount (GetBookCountRequest) returns (GetBookCountResponse); 
 }
 

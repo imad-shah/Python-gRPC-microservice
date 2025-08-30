@@ -24,31 +24,31 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13proto/library.proto\"3\n\x04\x42ook\x12\x0e\n\x06\x61uthor\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0c\n\x04isbn\x18\x03 \x01(\x04\"\x1f\n\x0fGetBooksRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\"R\n\x10GetBooksResponse\x12\x13\n\tall_books\x18\x01 \x01(\tH\x00\x12\x15\n\x03\x65rr\x18\x02 \x01(\x0b\x32\x06.ErrorH\x00\x42\x12\n\x10\x61ll_books_or_err\"(\n\x18GetReturnDeadlineRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\"Q\n\x19GetReturnDeadlineResponse\x12\x0e\n\x04\x64\x61te\x18\x01 \x01(\tH\x00\x12\x15\n\x03\x65rr\x18\x02 \x01(\x0b\x32\x06.ErrorH\x00\x42\r\n\x0b\x64\x61te_or_err\"#\n\x13GetBookCountRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\"X\n\x14GetBookCountResponse\x12\x14\n\nbook_count\x18\x01 \x01(\rH\x00\x12\x15\n\x03\x65rr\x18\x02 \x01(\x0b\x32\x06.ErrorH\x00\x42\x13\n\x11\x62ook_count_or_err\"&\n\x05\x45rror\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\r*=\n\tErrorCode\x12\x18\n\x14\x45RR_CODE_BAD_REQUEST\x10\x00\x12\x16\n\x12\x45RR_CODE_NOT_FOUND\x10\x01\x32\xc3\x01\n\x07Library\x12/\n\x08GetBooks\x12\x10.GetBooksRequest\x1a\x11.GetBooksResponse\x12J\n\x11GetReturnDeadline\x12\x19.GetReturnDeadlineRequest\x1a\x1a.GetReturnDeadlineResponse\x12;\n\x0cGetBookCount\x12\x14.GetBookCountRequest\x1a\x15.GetBookCountResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13proto/library.proto\"3\n\x04\x42ook\x12\x0e\n\x06\x61uthor\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0c\n\x04isbn\x18\x03 \x01(\x04\"\x1f\n\x0fGetBooksRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\"R\n\x10GetBooksResponse\x12\x13\n\tall_books\x18\x01 \x01(\tH\x00\x12\x15\n\x03\x65rr\x18\x02 \x01(\x0b\x32\x06.ErrorH\x00\x42\x12\n\x10\x61ll_books_or_err\"\x1c\n\x1aGetInventorySummaryRequest\"\x92\x01\n\x1bGetInventorySummaryResponse\x12\x14\n\x0ctotal_titles\x18\x01 \x01(\r\x12\x14\n\x0ctotal_copies\x18\x02 \x01(\r\x12\x19\n\x11total_checked_out\x18\x03 \x01(\r\x12\x17\n\x0ftotal_avaliable\x18\x04 \x01(\r\x12\x13\n\x03\x65rr\x18\x05 \x01(\x0b\x32\x06.Error\"#\n\x13GetBookCountRequest\x12\x0c\n\x04uuid\x18\x01 \x01(\t\"X\n\x14GetBookCountResponse\x12\x14\n\nbook_count\x18\x01 \x01(\rH\x00\x12\x15\n\x03\x65rr\x18\x02 \x01(\x0b\x32\x06.ErrorH\x00\x42\x13\n\x11\x62ook_count_or_err\"&\n\x05\x45rror\x12\x0f\n\x07message\x18\x01 \x01(\t\x12\x0c\n\x04\x63ode\x18\x02 \x01(\r*=\n\tErrorCode\x12\x18\n\x14\x45RR_CODE_BAD_REQUEST\x10\x00\x12\x16\n\x12\x45RR_CODE_NOT_FOUND\x10\x01\x32\xc9\x01\n\x07Library\x12/\n\x08GetBooks\x12\x10.GetBooksRequest\x1a\x11.GetBooksResponse\x12P\n\x13GetInventorySummary\x12\x1b.GetInventorySummaryRequest\x1a\x1c.GetInventorySummaryResponse\x12;\n\x0cGetBookCount\x12\x14.GetBookCountRequest\x1a\x15.GetBookCountResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'proto.library_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_ERRORCODE']._serialized_start=485
-  _globals['_ERRORCODE']._serialized_end=546
+  _globals['_ERRORCODE']._serialized_start=539
+  _globals['_ERRORCODE']._serialized_end=600
   _globals['_BOOK']._serialized_start=23
   _globals['_BOOK']._serialized_end=74
   _globals['_GETBOOKSREQUEST']._serialized_start=76
   _globals['_GETBOOKSREQUEST']._serialized_end=107
   _globals['_GETBOOKSRESPONSE']._serialized_start=109
   _globals['_GETBOOKSRESPONSE']._serialized_end=191
-  _globals['_GETRETURNDEADLINEREQUEST']._serialized_start=193
-  _globals['_GETRETURNDEADLINEREQUEST']._serialized_end=233
-  _globals['_GETRETURNDEADLINERESPONSE']._serialized_start=235
-  _globals['_GETRETURNDEADLINERESPONSE']._serialized_end=316
-  _globals['_GETBOOKCOUNTREQUEST']._serialized_start=318
-  _globals['_GETBOOKCOUNTREQUEST']._serialized_end=353
-  _globals['_GETBOOKCOUNTRESPONSE']._serialized_start=355
-  _globals['_GETBOOKCOUNTRESPONSE']._serialized_end=443
-  _globals['_ERROR']._serialized_start=445
-  _globals['_ERROR']._serialized_end=483
-  _globals['_LIBRARY']._serialized_start=549
-  _globals['_LIBRARY']._serialized_end=744
+  _globals['_GETINVENTORYSUMMARYREQUEST']._serialized_start=193
+  _globals['_GETINVENTORYSUMMARYREQUEST']._serialized_end=221
+  _globals['_GETINVENTORYSUMMARYRESPONSE']._serialized_start=224
+  _globals['_GETINVENTORYSUMMARYRESPONSE']._serialized_end=370
+  _globals['_GETBOOKCOUNTREQUEST']._serialized_start=372
+  _globals['_GETBOOKCOUNTREQUEST']._serialized_end=407
+  _globals['_GETBOOKCOUNTRESPONSE']._serialized_start=409
+  _globals['_GETBOOKCOUNTRESPONSE']._serialized_end=497
+  _globals['_ERROR']._serialized_start=499
+  _globals['_ERROR']._serialized_end=537
+  _globals['_LIBRARY']._serialized_start=603
+  _globals['_LIBRARY']._serialized_end=804
 # @@protoc_insertion_point(module_scope)

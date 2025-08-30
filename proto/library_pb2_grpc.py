@@ -39,10 +39,10 @@ class LibraryStub(object):
                 request_serializer=proto_dot_library__pb2.GetBooksRequest.SerializeToString,
                 response_deserializer=proto_dot_library__pb2.GetBooksResponse.FromString,
                 _registered_method=True)
-        self.GetReturnDeadline = channel.unary_unary(
-                '/Library/GetReturnDeadline',
-                request_serializer=proto_dot_library__pb2.GetReturnDeadlineRequest.SerializeToString,
-                response_deserializer=proto_dot_library__pb2.GetReturnDeadlineResponse.FromString,
+        self.GetInventorySummary = channel.unary_unary(
+                '/Library/GetInventorySummary',
+                request_serializer=proto_dot_library__pb2.GetInventorySummaryRequest.SerializeToString,
+                response_deserializer=proto_dot_library__pb2.GetInventorySummaryResponse.FromString,
                 _registered_method=True)
         self.GetBookCount = channel.unary_unary(
                 '/Library/GetBookCount',
@@ -56,20 +56,22 @@ class LibraryServicer(object):
 
     def GetBooks(self, request, context):
         """What books are currently checked out
+        finds a patron by name, then returns their books from nosql mongodb
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetReturnDeadline(self, request, context):
-        """When are the books currently checked out due
+    def GetInventorySummary(self, request, context):
+        """fetches all avaliable data from sql database pertaining to library
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetBookCount(self, request, context):
-        """How many books does the reader have checked out
+        """How many of a certain book is remaining in the Library
+        returns copies_remaining in sql db
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -83,10 +85,10 @@ def add_LibraryServicer_to_server(servicer, server):
                     request_deserializer=proto_dot_library__pb2.GetBooksRequest.FromString,
                     response_serializer=proto_dot_library__pb2.GetBooksResponse.SerializeToString,
             ),
-            'GetReturnDeadline': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetReturnDeadline,
-                    request_deserializer=proto_dot_library__pb2.GetReturnDeadlineRequest.FromString,
-                    response_serializer=proto_dot_library__pb2.GetReturnDeadlineResponse.SerializeToString,
+            'GetInventorySummary': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetInventorySummary,
+                    request_deserializer=proto_dot_library__pb2.GetInventorySummaryRequest.FromString,
+                    response_serializer=proto_dot_library__pb2.GetInventorySummaryResponse.SerializeToString,
             ),
             'GetBookCount': grpc.unary_unary_rpc_method_handler(
                     servicer.GetBookCount,
@@ -132,7 +134,7 @@ class Library(object):
             _registered_method=True)
 
     @staticmethod
-    def GetReturnDeadline(request,
+    def GetInventorySummary(request,
             target,
             options=(),
             channel_credentials=None,
@@ -145,9 +147,9 @@ class Library(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/Library/GetReturnDeadline',
-            proto_dot_library__pb2.GetReturnDeadlineRequest.SerializeToString,
-            proto_dot_library__pb2.GetReturnDeadlineResponse.FromString,
+            '/Library/GetInventorySummary',
+            proto_dot_library__pb2.GetInventorySummaryRequest.SerializeToString,
+            proto_dot_library__pb2.GetInventorySummaryResponse.FromString,
             options,
             channel_credentials,
             insecure,
