@@ -59,6 +59,11 @@ class LibraryStub(object):
                 request_serializer=proto_dot_library__pb2.ReturnBookRequest.SerializeToString,
                 response_deserializer=proto_dot_library__pb2.ReturnBookResponse.FromString,
                 _registered_method=True)
+        self.RegisterPatron = channel.unary_unary(
+                '/Library/RegisterPatron',
+                request_serializer=proto_dot_library__pb2.RegisterPatronRequest.SerializeToString,
+                response_deserializer=proto_dot_library__pb2.RegisterPatronResponse.FromString,
+                _registered_method=True)
 
 
 class LibraryServicer(object):
@@ -101,6 +106,13 @@ class LibraryServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RegisterPatron(self, request, context):
+        """Registering a new patro
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_LibraryServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -128,6 +140,11 @@ def add_LibraryServicer_to_server(servicer, server):
                     servicer.ReturnBook,
                     request_deserializer=proto_dot_library__pb2.ReturnBookRequest.FromString,
                     response_serializer=proto_dot_library__pb2.ReturnBookResponse.SerializeToString,
+            ),
+            'RegisterPatron': grpc.unary_unary_rpc_method_handler(
+                    servicer.RegisterPatron,
+                    request_deserializer=proto_dot_library__pb2.RegisterPatronRequest.FromString,
+                    response_serializer=proto_dot_library__pb2.RegisterPatronResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -265,6 +282,33 @@ class Library(object):
             '/Library/ReturnBook',
             proto_dot_library__pb2.ReturnBookRequest.SerializeToString,
             proto_dot_library__pb2.ReturnBookResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RegisterPatron(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/Library/RegisterPatron',
+            proto_dot_library__pb2.RegisterPatronRequest.SerializeToString,
+            proto_dot_library__pb2.RegisterPatronResponse.FromString,
             options,
             channel_credentials,
             insecure,

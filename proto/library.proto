@@ -88,14 +88,14 @@ message RegisterPatronResponse {
 
 service Library {
   // What books are currently checked out
-  // finds a patron by name, then returns their books from nosql mongodb
+  // Finds a patron by name, then returns their books from nosql mongodb
   rpc GetBooks (GetBooksRequest) returns (GetBooksResponse); 
 
-  // fetches all available data from sql database pertaining to library
+  // Fetches all available data from sql database pertaining to library
   rpc GetInventorySummary (GetInventorySummaryRequest) returns (GetInventorySummaryResponse);
 
   // How many of a certain book is remaining in the Library
-  // returns copies_remaining in sql db
+  // Returns copies_remaining in sql db
   rpc GetBookCount (GetBookCountRequest) returns (GetBookCountResponse); 
 
   // Checkout a book from mysql db, put it in the nosql db for each patron, return an error if 0 copies remaining in sql
@@ -104,7 +104,7 @@ service Library {
   // Opposite of checkout book
   rpc ReturnBook(ReturnBookRequest) returns (ReturnBookResponse);
 
-  // Registering a new patro
-  rpc RegisterPatron (RegisterPatronRequest) returns (RegisterPatronResponse)
+  // Registering a new patron
+  rpc RegisterPatron (RegisterPatronRequest) returns (RegisterPatronResponse);
 }
 
