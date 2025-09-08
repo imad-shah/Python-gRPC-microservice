@@ -71,14 +71,14 @@ class LibraryServicer(object):
 
     def GetBooks(self, request, context):
         """What books are currently checked out
-        finds a patron by name, then returns their books from nosql mongodb
+        Finds a patron by name, then returns their books from nosql mongodb
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetInventorySummary(self, request, context):
-        """fetches all available data from sql database pertaining to library
+        """Fetches all available data from sql database pertaining to library
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -86,7 +86,7 @@ class LibraryServicer(object):
 
     def GetBookCount(self, request, context):
         """How many of a certain book is remaining in the Library
-        returns copies_remaining in sql db
+        Returns copies_remaining in sql db
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -107,7 +107,7 @@ class LibraryServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def RegisterPatron(self, request, context):
-        """Registering a new patro
+        """Registering a new patron
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
