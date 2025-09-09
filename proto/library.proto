@@ -27,16 +27,16 @@ message GetInventorySummaryResponse {
 }
 
 message GetBookCountRequest{
-  string patron = 1; 
+  string book = 1; 
 }
 
 message GetBookCountResponse{
-  uint32 book_count = 1;
+  uint32 copies_remaining  = 1;
 }
 
 message CheckoutBookRequest {
   string patron = 1;
-  string isbn = 2;
+  string book = 2;
 }
 
 message CheckoutBookResponse {
@@ -45,23 +45,19 @@ message CheckoutBookResponse {
     NOT_FOUND = 1; // patron or book not found
     UNAVAILABLE = 2; // no copies_remaining
     ERROR = 4;
+    ALREADY_EXISTS = 5;
   }
   Status status = 1;
   string message = 2;
-  LoanInfo loan = 3;
   uint32 copies_remaining = 4;
 
 }
 
-message LoanInfo {
-  string isbn = 1;
-  string checkout_time = 2;
-  string due_date = 3;
-}
+
 
 message ReturnBookRequest {
   string patron = 1;
-  string isbn = 2;
+  string book = 2;
 }
 
 message ReturnBookResponse {
