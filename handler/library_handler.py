@@ -65,8 +65,8 @@ class LibraryServicer(library_pb2_grpc.LibraryServicer):
   # Opposite of checkout book
     def ReturnBook(self, request, context):
         pass
-  # Registering a new patron
 
+  # Registering a new patron
     def RegisterPatron(self, request, context):
         pass
 
