@@ -81,7 +81,7 @@ class BookRepository(IBookRepository):
 
     def CreatePatron(self, patron: str):
         # insert = {'id' : ? , 'name' : patron, 'books' = []}
-        pass
-
+        last_id = self._mongodb.find_one().sort({"ID"}, -1)
+        db.yourCollectionName.find().sort({ _id: -1 }).limit(1)
 
 
