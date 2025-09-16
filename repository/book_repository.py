@@ -4,9 +4,9 @@ import collections
 from models import Book
 
 INSERT_QUERY = 'insert into books (isbn,title,author,copies_remaining,total_copies) values (%s,%s,%s,%s,%s)'
-UPDATE_QUERY = 'update books set isbn=%s,title=%s,author=%s,copies_remaining=%s,total_copies=%s where id=%s'
-GET_QUERY = 'select isbn, title, author, copies_remaining, total_copies from books where id=%s'
-DELETE_QUERY = 'delete from books where id=%s'
+UPDATE_QUERY = 'update books set isbn=%s,title=%s,author=%s,copies_remaining=%s,total_copies=%s where isbn=%s'
+GET_QUERY = 'select isbn, title, author, copies_remaining, total_copies from books where isbn=%s'
+DELETE_QUERY = 'delete from books where isbn=%s'
 
 class IBookRepository(ABC):
 
@@ -60,6 +60,12 @@ class BookRepository(IBookRepository):
         rows = cursor.fetchall()
         return [Book(isbn, title, author, copies_remaining, total_copies) for isbn, title, author, copies_remaining, total_copies in rows]
 
+    def GetBookCount(self, isbn: str) -> int:
+        cursor = self._sqldb.cursor(dictionary = True)
+        cursor.execute(GET_QUERY, (isbn,))
+        row = cursor.fetch_one()
+        return row['copies_remaining']
+
     def IncrementCopies(self, isbn : str) -> None:
         cursor = self._sqldb.cursor()
         cursor.execute('UPDATE Books SET copies_remaining = copies_remaining + 1 WHERE isbn = %s', (isbn,))
@@ -72,10 +78,9 @@ class BookRepository(IBookRepository):
         self._sqldb.commit()
         return None
 
-    def ReturnBook(self, isbn: str, patron : str):
-        pass
 
     def CreatePatron(self, patron: str):
+        # insert = {'id' : ? , 'name' : patron, 'books' = []}
         pass
 
 
