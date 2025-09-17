@@ -12,7 +12,7 @@ class IBookRepository(ABC):
 
 
     @abstractmethod
-    def GetBooks(self, patron : str) -> list[str]:
+    def GetBooks(self, id : int) -> list[str]:
         pass
 
     @abstractmethod
@@ -40,8 +40,8 @@ class BookRepository(IBookRepository):
         self._sqldb = sqldb
         self._mongodb = mongodb
 
-    def GetBooks(self, patron : str) -> list[str]:
-        doc = self._mongodb.find({'name' : patron})
+    def GetBooks(self, id: int) -> list[str]:
+        doc = self._mongodb.find({'id' : id})
         if doc:
             books = doc['books']
             if books:
@@ -51,8 +51,6 @@ class BookRepository(IBookRepository):
         else:
             print('Patron not found')
         return []
-
-
 
     def GetInventorySummary(self) -> list[Book]:
         cursor = self._sqldb.cursor()
@@ -80,8 +78,8 @@ class BookRepository(IBookRepository):
 
 
     def CreatePatron(self, patron: str):
-        # insert = {'id' : ? , 'name' : patron, 'books' = []}
         last_id = self._mongodb.find_one().sort({"ID"}, -1)
-        db.yourCollectionName.find().sort({ _id: -1 }).limit(1)
+        insert = {'id' : last_id + 1, 'name' : patron, 'books' : []}
+        self._mongodb.insert_one(insert)
 
 
