@@ -1,5 +1,4 @@
 from pymongo import MongoClient
-from pymongo.synchronous import collection
 
 
 def run():
