@@ -4,7 +4,7 @@ from dataclasses import dataclass
 class Book:
     author: str
     title: str
-    isbn: str
+    isbn: int
     copies_remaining: int
     total_copies: int
 
