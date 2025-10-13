@@ -1,2 +1,2 @@
-from proto import Library
-__all__ = ['library']
+from .library import Library
+__all__ = ['Library']
