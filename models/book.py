@@ -2,11 +2,11 @@ from dataclasses import dataclass
 
 @dataclass
 class Book:
-    author: str
+    isbn: str
     title: str
-    isbn: int
+    author: str
     copies_remaining: int
     total_copies: int
 
     def get_tuple(self):
-        return self.author, self.title, self.isbn, self.copies_remaining, self.total_copies 
+        return self.isbn, self.title, self.author, self.copies_remaining, self.total_copies 
