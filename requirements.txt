@@ -1,0 +1,6 @@
+grpcio==1.68.1
+grpcio-tools==1.68.1
+grpcio-reflection==1.68.1
+protobuf>=5.28.0
+mysql-connector-python==8.3.0
+pymongo==4.6.2
